@@ -6,6 +6,7 @@ import Checkout from './pages/Checkout.jsx'
 import Navbar from './components/Navbar.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { ToastContainer } from 'react-toastify'
+import ProductDetails from './pages/ProductDetails.jsx'
 
 import './App.css'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
@@ -22,6 +23,7 @@ const App = () => {
             <Route path='/' element={<Home />} />
             <Route path='/auth' element={<Auth />} />
             <Route path='/checkout' element={<Checkout />} />
+            <Route path='/product/:id' element={<ProductDetails />} />
           </Routes>
         </div>
       </AuthProvider>
