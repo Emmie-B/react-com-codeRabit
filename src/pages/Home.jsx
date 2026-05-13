@@ -2,6 +2,7 @@ import React from "react";
 
 import { useProducts } from "../Queries/DataQueries.js";
 import ProductCard from "../components/ProductCard.jsx";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { prd, isPending, error } = useProducts();
@@ -28,7 +29,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      
+
       {/* Hero Section */}
       <section className="bg-black text-white py-20 px-6">
         <div className="max-w-7xl mx-auto text-center">
@@ -57,10 +58,12 @@ const Home = () => {
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {prd?.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-            />
+            <Link to={`/product/${product.id}`} key={product.id}>
+              <ProductCard
+                key={product.id}
+                product={product}
+              />
+            </Link>
           ))}
         </div>
       </section>
