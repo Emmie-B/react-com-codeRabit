@@ -10,7 +10,7 @@ export const Checkout = () => {
     0
   );
 
-  const shipping = 10;
+  const shipping = subtotal > 0 ? 10 : 0;
   const tax = subtotal * 0.05;
 
   const total = subtotal + shipping + tax;
