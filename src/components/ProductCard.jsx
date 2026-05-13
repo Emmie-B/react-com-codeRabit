@@ -1,7 +1,23 @@
 import React from "react";
+import { useCart } from "../context/CartContext";
 
 const ProductCard = ({ product }) => {
   if (!product) return null;
+
+  const { id, title, price, description, category, image, rating } = product;
+
+  const {addToCart, cartItems} = useCart();
+
+  // check if product is already in cart
+  const productInCart = cartItems.find((item) => item.id === product.id);
+
+  // add product quantity if already in cart
+  const quantityLabel = productInCart ? ` (${productInCart.quantity || 1})` : "";
+
+
+  function handleAddToCart() {
+    addToCart(product);
+  }
 
   return (
     <div className="max-w-sm rounded-2xl  shadow-md overflow-hidden border bg-white hover:shadow-xl transition duration-300">
@@ -46,8 +62,8 @@ const ProductCard = ({ product }) => {
         </div>
 
         {/* Button */}
-        <button className="w-full mt-4 bg-black text-white py-2 rounded-xl hover:bg-gray-800 transition">
-          Add to Cart
+        <button className="w-full mt-4 bg-black text-white py-2 rounded-xl hover:bg-gray-800 transition" onClick={handleAddToCart}>
+          Add to Cart {quantityLabel}
         </button>
       </div>
     </div>
@@ -55,3 +71,10 @@ const ProductCard = ({ product }) => {
 };
 
 export default ProductCard;
+
+
+
+
+
+
+
