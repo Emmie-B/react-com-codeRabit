@@ -1,19 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import { useCart } from "../context/CartContext.jsx";
+import { BsCartDash } from "react-icons/bs";
 
 const Navbar = () => {
   // const { user, logout } = useAuth();
 
-//   const [user, setUser] = React.useState(null);
-  const { signup, login , user, logout } = useAuth();
+  //   const [user, setUser] = React.useState(null);
+  const { signup, login, user, logout } = useAuth();
 
- 
+  // get cart items 
+  const { cartItems } = useCart();
+
+
 
   return (
     <nav className="w-full border-b bg-white pr-10 pl-10 shadow-sm">
       <div className="max-w-7xl mx-auto px-10 py-10 flex items-center justify-between">
-        
+
         {/* Logo */}
         <Link
           to="/"
@@ -35,8 +40,20 @@ const Navbar = () => {
             to="/checkout"
             className="text-gray-700 hover:text-black transition font-medium"
           >
-            Cart
+
+          <div className="relative inline-block">
+            {/* The Icon */}
+            <BsCartDash className="text-2xl" />
+
+            {/* The Badge */}
+            {cartItems.length > 0 && (
+              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+                {cartItems.length}
+              </span>
+            )}
+          </div>
           </Link>
+
         </div>
 
         {/* Auth Section */}
@@ -49,13 +66,13 @@ const Navbar = () => {
               >
                 Login
               </Link>
-
+              {/* 
               <Link
                 to="/auth"
                 className="px-4 py-2 rounded-xl bg-black text-white hover:bg-gray-800 transition"
               >
                 Signup
-              </Link>
+              </Link> */}
             </div>
           ) : (
             <div className="flex items-center gap-4">
@@ -64,7 +81,7 @@ const Navbar = () => {
               </span>
 
               <button
-                onClick={ () => logout()}
+                onClick={() => logout()}
                 className="px-4 py-2 rounded-xl border border-gray-300 hover:bg-gray-100 transition"
               >
                 Logout

@@ -5,6 +5,7 @@ import Auth from './pages/Auth.jsx'
 import Checkout from './pages/Checkout.jsx'
 import Navbar from './components/Navbar.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
+import { CartProvider } from './context/CartContext.jsx'
 import { ToastContainer } from 'react-toastify'
 import ProductDetails from './pages/ProductDetails.jsx'
 
@@ -17,6 +18,8 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
+        <CartProvider>
+
         <div className='app'>
           <Navbar />
           <Routes>
@@ -26,6 +29,7 @@ const App = () => {
             <Route path='/product/:id' element={<ProductDetails />} />
           </Routes>
         </div>
+        </CartProvider>
       </AuthProvider>
       <ToastContainer
         position="top-right"

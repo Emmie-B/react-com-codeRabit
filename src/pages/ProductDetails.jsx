@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProducts } from "../Queries/DataQueries.js";
+import { useCart } from "../context/CartContext.jsx";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -28,6 +29,22 @@ const ProductDetails = () => {
 
   // Find product by id
   const product = prd?.find((p) => p.id === Number(id));
+
+
+  // hasndle add to cart
+    const {addToCart, cartItems} = useCart();
+
+  // check if product is already in cart
+  const productInCart = cartItems.find((item) => item.id === product.id);
+
+  // add product quantity if already in cart
+  const quantityLabel = productInCart ? ` (${productInCart.quantity || 1})` : "";
+
+
+  function handleAddToCart() {
+    addToCart(product);
+  }
+
 
   if (!product) {
     return (
@@ -85,7 +102,7 @@ const ProductDetails = () => {
 
           {/* Actions */}
           <div className="mt-8 flex gap-4">
-            <button className="px-6 py-3 bg-black text-white rounded-xl hover:bg-gray-800 transition">
+            <button className="px-6 py-3 bg-black text-white rounded-xl hover:bg-gray-800 transition" onClick={handleAddToCart}>
               Add to Cart
             </button>
 
