@@ -48,7 +48,7 @@ const Navbar = () => {
             {/* The Badge */}
             {cartItems.length > 0 && (
               <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-                {cartItems.length}
+                {cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0)}
               </span>
             )}
           </div>
